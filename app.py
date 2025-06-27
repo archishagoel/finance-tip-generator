@@ -8,8 +8,8 @@ load_dotenv()
 API_KEY = os.getenv("WATSONX_API_KEY")
 
 PROJECT_ID = "dcb560fa-bad2-4bd1-b579-146389917a26"
-MODEL_ID = "meta-llama/llama-2-13b-chat"  # Example model, can change
-REGION = "us-south"  # or whichever region your project is in
+MODEL_ID = "meta-llama/llama-2-13b-chat" 
+REGION = "us-south"  
 
 # === Get access token ===
 def get_access_token(api_key):
@@ -38,7 +38,7 @@ def generate_ai_tip(prompt, token):
             "decoding_method": "greedy",
             "max_new_tokens": 1000
         },
-        "project_id": PROJECT_ID  # ✅ Correct location for project_id
+        "project_id": PROJECT_ID  
     }
 
     response = requests.post(url, headers=headers, json=payload)
@@ -66,7 +66,6 @@ if st.button("Get Tips"):
     if savings < goal:
         logic_tips.append("You are behind on your savings goal. Consider saving 20% each month.")
 
-    # ✅ ADD THESE NEW RULES BELOW:
     if expenses > income * 0.8:
         logic_tips.append("Your spending is very high. Cut dining out and luxury shopping.")
     if income - expenses < 5000:
@@ -75,7 +74,7 @@ if st.button("Get Tips"):
         months_needed = round((goal - savings) / (income - expenses))
         logic_tips.append(f"At your current savings rate, you can reach your goal in about {months_needed} months.")
 
-    # ✅ Now build the prompt *from logic_tips* instead of repeating same static text
+    
     combined_tips = "\n".join(logic_tips)
     prompt = (
     f"The user shared their income and expenses. Here are some calculated tips:\n"
